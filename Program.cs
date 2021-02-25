@@ -30,13 +30,32 @@ namespace CS_Language_Basics
             //Reference Types
             String n = "Moldova Forever";
             Example_2 ex_2 = new Example_2();
-            var result = Example_2.Multiply(ex_2.x, ex_2.y); //Using of static method
+            Console.WriteLine("count is " + Example_2.count);
+
+            //Using of static method
+            var result = Example_2.Multiply(ex_2.x, ex_2.y); 
             Console.WriteLine(result);
+
+            //Using of parameters modifiers
+            //ref
             var result_1 = Example_2.Multiply(ref c, a);
-            System.Console.WriteLine(result_1);
+            Console.WriteLine(result_1);
+            //out
             int v;
             int w;
-            int.Parse(n);
+            Console.WriteLine(Example_2.MultiplyForOut(out v, w));
+            //params
+            Console.WriteLine(Example_2.AdditionUnknownParameters(a, b, c, d));
+
+            //Using of boxing and unboxing
+            int z = 100;
+            object box = z;
+            int p = box;
+            Console.WriteLine(z + ", " + box + ", " + p);
+
+            //Static constructor
+            Example_2 ex_3 = new Example_2();
+            Console.WriteLine("count is " + Example_2.count);            
         }              
     }
     struct Example {
@@ -57,6 +76,18 @@ namespace CS_Language_Basics
     {
         public int x = 10;
         public int y = 20;
+        public static int count;
+
+        public Example_2()
+        {
+            count++;
+        }
+
+        public static Example_2()
+        {
+            count = 1;
+            System.Console.WriteLine("First Example_2 instance was created!");
+        }
 
         public static int Multiply(int x, int y)
         {
@@ -64,8 +95,18 @@ namespace CS_Language_Basics
         }
         public static int MultiplyForOut(int x, int y)
         {
-            x = int.
+            x = 20;
+            y = 40;
             return y * x;
+        }
+        public static var AdditionUnknownParameters(params int [] paramsArray)
+        {
+            var result;
+            foreach(var y in paramsArray)
+            {
+                result += y;
+            }
+            return reuslt;
         }
     }
 };
