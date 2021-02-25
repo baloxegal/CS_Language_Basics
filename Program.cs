@@ -27,10 +27,16 @@ namespace CS_Language_Basics
             Example ex = new Example { x = 10, y = 20};
             int ex_1 = (int)Example_1.FRIDAY;
 
-            //Reference Type
+            //Reference Types
             String n = "Moldova Forever";
             Example_2 ex_2 = new Example_2();
-            var result = Example_2.Multiply(ex_2.x, ex_2.y);
+            var result = Example_2.Multiply(ex_2.x, ex_2.y); //Using of static method
+            Console.WriteLine(result);
+            var result_1 = Example_2.Multiply(ref c, a);
+            System.Console.WriteLine(result_1);
+            int v;
+            int w;
+            int.Parse(n);
         }              
     }
     struct Example {
@@ -54,7 +60,12 @@ namespace CS_Language_Basics
 
         public static int Multiply(int x, int y)
         {
-            return y / x;
+            return y * x;
+        }
+        public static int MultiplyForOut(int x, int y)
+        {
+            x = int.
+            return y * x;
         }
     }
 };
