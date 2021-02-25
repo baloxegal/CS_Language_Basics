@@ -62,7 +62,7 @@ namespace CS_Language_Basics
             Console.WriteLine("count is " + Example_2.count);
 
             //Threads
-            Thread thread_1 = new Thread(new ThreadStart(CountUp));
+            Thread thread_1 = new Thread(CountUp);
             Thread thread_2 = new Thread(CountDown);
             thread_1.Start();
             thread_2.Start();
