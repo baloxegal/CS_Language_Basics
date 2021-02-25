@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace CS_Language_Basics
 {
@@ -33,30 +34,55 @@ namespace CS_Language_Basics
             Console.WriteLine("count is " + Example_2.count);
 
             //Using of static method
-            var result = Example_2.Multiply(ex_2.x, ex_2.y); 
+            var result = Example_2.Multiply(ref ex_2.x, ref ex_2.y); 
             Console.WriteLine(result);
 
             //Using of parameters modifiers
             //ref
-            var result_1 = Example_2.Multiply(ref c, a);
+            int r = 22;
+            int s = 33;
+            var result_1 = Example_2.Multiply(ref r, ref s);
             Console.WriteLine(result_1);
             //out
             int v;
             int w;
-            Console.WriteLine(Example_2.MultiplyForOut(out v, w));
+            var result_2 = Example_2.MultiplyForOut(out v, out w);
+            Console.WriteLine(result_2);
             //params
             Console.WriteLine(Example_2.AdditionUnknownParameters(a, b, c, d));
 
             //Using of boxing and unboxing
             int z = 100;
             object box = z;
-            int p = box;
+            int p = (int)box;
             Console.WriteLine(z + ", " + box + ", " + p);
 
             //Static constructor
             Example_2 ex_3 = new Example_2();
-            Console.WriteLine("count is " + Example_2.count);            
-        }              
+            Console.WriteLine("count is " + Example_2.count);
+
+            //Threads
+            Thread thread_1 = new Thread(new ThreadStart(CountUp));
+            Thread thread_2 = new Thread(CountDown);
+            thread_1.Start();
+            thread_2.Start();
+        }
+        public static void CountUp()
+        {
+            for (int i = 0; i <= 100; i++)
+            {
+                Console.WriteLine("Thread 1 - " + i);
+                Thread.Sleep(30);
+            }
+        }
+        public static void CountDown()
+        {
+            for (int i = 100; i >= 0; i--)
+            {
+                Console.WriteLine("Thread 2 - " + i);
+                Thread.Sleep(30);
+            }
+        }
     }
     struct Example {
         public int x;
@@ -83,32 +109,32 @@ namespace CS_Language_Basics
             count++;
         }
 
-        public static Example_2()
+        static Example_2()
         {
-            count = 1;
+            count = 0;
             System.Console.WriteLine("First Example_2 instance was created!");
         }
 
-        public static int Multiply(int x, int y)
+        public static int Multiply(ref int x, ref int y)
         {
             return y * x;
         }
-        public static int MultiplyForOut(int x, int y)
+        public static int MultiplyForOut(out int x, out int y)
         {
             x = 20;
             y = 40;
             return y * x;
         }
-        public static var AdditionUnknownParameters(params int [] paramsArray)
+        public static int AdditionUnknownParameters(params int [] paramsArray)
         {
-            var result;
+            var result = 0;
             foreach(var y in paramsArray)
             {
                 result += y;
             }
-            return reuslt;
-        }
-    }
+            return result;
+        }        
+    }    
 };
 
 
